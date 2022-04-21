@@ -25,7 +25,7 @@ class _AlbumListViewState extends State<AlbumListView> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: getAppBar("相册列表"),
+      appBar: getAppBar("图形"),
       body: Container(
           padding: EdgeInsets.only( left: 15, right: 15),
           child: ListView.builder(
@@ -34,6 +34,7 @@ class _AlbumListViewState extends State<AlbumListView> {
             itemCount: _albumList == null ? 0 : _albumList.length,
           ) ),
       floatingActionButton: FloatingActionButton(
+        heroTag:'album_add',
         child: Icon(Icons.add),
         onPressed: _add,
         backgroundColor: Theme.of(context).primaryColor,

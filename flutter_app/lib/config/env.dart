@@ -27,12 +27,12 @@ class Env {
   // 测试环境
   static final EnvConfig _testConfig = EnvConfig(
     appTitle: "testTitle",
-    appDomain: "http://app.orangemust.com:8085",
+    appDomain: "http://192.168.18.171:8080",
   );
 
   static EnvConfig get envConfig => _getEnvConfig();
 
-// 根据不同环境返回对应的环境配置
+  // 根据不同环境返回对应的环境配置
   static EnvConfig _getEnvConfig() {
     switch (appEnv) {
       case EnvName.debug:

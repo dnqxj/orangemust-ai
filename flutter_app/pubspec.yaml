@@ -60,6 +60,8 @@ dependencies:
   provider: ^4.3.2+3
   # 轮播图
   flutter_swiper: ^1.1.6
+  # 轻提示
+  fluttertoast: ^7.1.8
 
 dev_dependencies:
   flutter_test:
