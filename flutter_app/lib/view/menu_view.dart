@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/global/global_theme.dart';
 import 'package:flutter_app/provider/app_provider.dart';
+import 'package:flutter_app/view/graphical/graphical_distinguish_view.dart';
+import 'package:flutter_app/view/graphical/graphical_index_view.dart';
 import 'package:flutter_app/view/home/home_view.dart';
 import 'package:flutter_app/view/mine/mine_index_view.dart';
 import 'package:flutter_app/view/ocr/ocr_index_view.dart';
 import 'package:flutter_app/view/translate/translate_index_view.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'album/album_list_view.dart';
 
 class MenuView extends StatefulWidget {
   const MenuView({Key key}) : super(key: key);
@@ -23,20 +24,19 @@ class _MenuViewState extends State<MenuView> {
   int _currentIndex = 0;
 
   // init data
- List<Widget> _widgetOptions = List();
+  List<Widget> _widgetOptions = List();
 
   @override
   void initState() {
     super.initState();
     _widgetOptions
       ..add(HomeView())
-      ..add(AlbumListView())
+      ..add(GraphicalIndexView())
       ..add(TranslateIndexView())
       ..add(OcrIndexView())
       ..add(MineIndexView());
     _pageController = PageController(initialPage: this._currentIndex);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class _MenuViewState extends State<MenuView> {
             controller: _pageController,
           ),
           floatingActionButton: FloatingActionButton(
-            heroTag:'home',
+            heroTag: 'home',
             backgroundColor: themeColor,
             onPressed: () {
               onTap(4);
@@ -59,7 +59,8 @@ class _MenuViewState extends State<MenuView> {
               color: Colors.white,
             ),
           ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: BottomAppBar(
             color: themeColor,
             shape: CircularNotchedRectangle(),
@@ -134,7 +135,7 @@ class _MenuViewState extends State<MenuView> {
           _lastTime = newTime;
           if (result > 2000) {
             Fluttertoast.showToast(
-                msg: "This is Center Short Toast",
+              msg: "This is Center Short Toast",
             );
           } else {
             SystemNavigator.pop();
@@ -159,5 +160,4 @@ class _MenuViewState extends State<MenuView> {
     // _pageController.animateToPage(value, duration: const Duration(milliseconds: 100), curve: Curves.ease);
     _pageController.jumpToPage(value);
   }
-
 }
