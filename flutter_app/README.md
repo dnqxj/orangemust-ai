@@ -100,6 +100,8 @@ apk 位置：build\app\outputs\flutter-apk\app-release.apk
 
 [2022-4-22] 底部切换菜单完成
 
+[2022-4-25] 图形AI页面基本完成
+
 
 ## 联系作者
 

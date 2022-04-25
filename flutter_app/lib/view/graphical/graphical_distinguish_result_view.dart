@@ -41,39 +41,36 @@ class _GraphicalDistinguishResultViewState
       appBar: AppBar(
         title: Text("识别结果"),
       ),
-      body: Container(
-        padding: EdgeInsets.all(15),
-        child: Column(
-          children: [
-            Container(
-              child: _uploadImageUrlPath != null
-                  ? Image.network(
-                      _uploadImageUrlPath,
-                      height: 150,
-                      fit: BoxFit.fill,
-                    )
-                  : Container(),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            Divider(
-              height: 1,
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            Expanded(
-                child: Container(
-              height: 200,
-              child: ListView.builder(
-                itemBuilder: _itemBuilder,
-                itemCount: _resultList != null ? _resultList.length : 0,
-              ),
-            ))
-          ],
+      // 整个页面滑动，并且页面上存在这多种不同的wiget
+      body: CustomScrollView(slivers: [
+        // 使用 SliverToBoxAdapter 适配box，支持customScrollView华东
+        SliverToBoxAdapter(
+            child: Container(
+                padding: EdgeInsets.all(15),
+                child: Column(children: [
+                  Container(
+                    child: _uploadImageUrlPath != null
+                        ? Image.network(
+                            _uploadImageUrlPath,
+                            height: 150,
+                            fit: BoxFit.fill,
+                          )
+                        : Container(),
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Divider(
+                    height: 1,
+                  ),
+                ]))),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            _itemBuilder,
+            childCount: _resultList.length,
+          ),
         ),
-      ),
+      ]),
     );
   }
 
@@ -83,70 +80,68 @@ class _GraphicalDistinguishResultViewState
     var item = _resultList[index];
 
     return Container(
+        padding: EdgeInsets.all(15),
         child: Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      "类    别：",
+                      style: labelStyle,
+                    ),
+                    Text(
+                      item["category"],
+                      style: valueStyle,
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "置信度：",
+                      style: labelStyle,
+                    ),
+                    Text(
+                      item["confidence"].toString(),
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red),
+                    )
+                  ],
+                )
+              ],
+            ),
             Row(
               children: [
                 Text(
-                  "类    别：",
+                  "关键字：",
                   style: labelStyle,
                 ),
                 Text(
-                  item["category"],
+                  item["keyword"],
                   style: valueStyle,
                 )
               ],
             ),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "置信度：",
+                  "描    述：",
                   style: labelStyle,
                 ),
-                Text(
-                  item["confidence"].toString(),
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red),
+                Expanded(
+                  child: Text(
+                    item["describe"],
+                  ),
                 )
               ],
-            )
-          ],
-        ),
-        Row(
-          children: [
-            Text(
-              "关键字：",
-              style: labelStyle,
             ),
-            Text(
-              item["keyword"],
-              style: valueStyle,
-            )
           ],
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "描    述：",
-              style: labelStyle,
-            ),
-            Expanded(
-              child: Text(
-                item["describe"],
-              ),
-            )
-          ],
-        ),
-        SizedBox(
-          height: 16,
-        ),
-      ],
-    ));
+        ));
   }
 }
