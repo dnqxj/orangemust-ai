@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 List themes = [
+  Colors.deepOrange,
   Colors.blue,
   Colors.yellow,
   Colors.red,
